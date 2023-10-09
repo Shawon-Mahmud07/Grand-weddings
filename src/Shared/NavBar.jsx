@@ -40,15 +40,17 @@ const NavBar = () => {
           Home
         </NavLink>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        className="p-1 font-normal text-[#706F6F] text-lg"
+
+      <NavLink
+        to="gallery"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center text-[#AE4A4A] font-bold underline text-lg"
+            : "flex items-center text-[#706F6F] text-lg"
+        }
       >
-        <a href="#" className="flex items-center">
-          About
-        </a>
-      </Typography>
+        Gallery
+      </NavLink>
       <NavLink
         to="/Contact"
         className={({ isActive }) =>

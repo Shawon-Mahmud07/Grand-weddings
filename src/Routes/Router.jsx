@@ -7,6 +7,7 @@ import Register from "../Pages/Home/Register/Register";
 import PrivetRoute from "./PrivetRoute";
 import ErrorPage from "../Pages/Home/ErrorPage";
 import ContactUs from "../components/ContactUs";
+import Gallery from "../components/Gallery";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <ContactUs></ContactUs>,
+        element: (
+          <PrivetRoute>
+            <ContactUs></ContactUs>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/gallery",
+        element: (
+          <PrivetRoute>
+            <Gallery></Gallery>
+          </PrivetRoute>
+        ),
       },
       {
         path: "/login",
