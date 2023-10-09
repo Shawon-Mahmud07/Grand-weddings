@@ -1,7 +1,7 @@
 import NavBar from "../../../Shared/NavBar";
-// import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-// import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { HiEyeOff, HiEye } from "react-icons/hi";
 import {
   Card,
   CardHeader,
@@ -12,34 +12,41 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
-// import { AuthContext } from "../../../Providers/AuthProviders";
+import Footer from "../../Footer/Footer";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Login = () => {
-  //  const { userSignIn } = useContext(AuthContext);
-  //  const [email, setEmail] = useState("");
-  //  const [password, setPassword] = useState("");
-  //  const location = useLocation();
-  //  const navigate = useNavigate();
+  const { userSignIn } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordIcon, setShowPassword] = useState(false);
 
-  //  const handleClick = () => {
-  //    const trimmedEmail = email.trim();
-  //    const trimmedPassword = password.trim();
-  //    userSignIn(trimmedEmail, trimmedPassword)
-  //      .then((userCredential) => {
-  //        const user = userCredential.user;
-  //        console.log(user);
-  //        // Navigate after Login
-  //        navigate(location?.state ? location.state : "/");
-  //      })
-  //      .catch((error) => {
-  //        const errorMessage = error.message;
-  //        console.log(errorMessage);
-  //      });
-  //  };
+  // make password input visible
+  const showPassword = () => {
+    setShowPassword(!passwordIcon);
+  };
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    userSignIn(trimmedEmail, trimmedPassword)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        // Navigate after Login
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <div>
       <NavBar></NavBar>
-      <div>
+      <div className="mb-5 md:mb-20 ">
         <div className="mt-10 flex justify-center ">
           <Card className="w-96">
             <CardHeader
@@ -51,22 +58,26 @@ const Login = () => {
                 Login your account
               </Typography>
             </CardHeader>
-            <CardBody className="flex flex-col gap-4">
+            <CardBody className=" relative flex flex-col gap-4">
               <Input
                 label="Email"
                 size="lg"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
 
               <Input
                 label="Password"
                 size="lg"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
+                type={passwordIcon ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <div onClick={showPassword} className="absolute top-24 right-8">
+                {passwordIcon ? <HiEye></HiEye> : <HiEyeOff></HiEyeOff>}
+              </div>
               <small className="-mt-3">Forget Password?</small>
 
               <div className="-ml-2.5">
@@ -74,8 +85,7 @@ const Login = () => {
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              {/* onClick={handleClick} */}
-              <Button variant="gradient" fullWidth>
+              <Button variant="gradient" onClick={handleClick} fullWidth>
                 Login
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
@@ -89,6 +99,7 @@ const Login = () => {
           </Card>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

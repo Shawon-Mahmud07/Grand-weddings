@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Navbar,
   Collapse,
@@ -9,15 +9,15 @@ import {
 import userDefaultPicture from "../assets/user.png";
 import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
-// import { AuthContext } from "../../../Providers/AuthProviders";
+import { AuthContext } from "../Providers/AuthProvider";
 
 const NavBar = () => {
-  // const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [openNav, setOpenNav] = React.useState(false);
 
-  // const handleLogOut = () => {
-  //   logOut();
-  // };
+  const handleLogOut = () => {
+    logOut();
+  };
 
   React.useEffect(() => {
     window.addEventListener(
@@ -87,7 +87,7 @@ const NavBar = () => {
             alt="Profile"
             className="h-7 md:h-10 w-7 md:w-10 rounded-full mr-2"
           />
-          {/* {user ? (
+          {user ? (
             <Button
               onClick={handleLogOut}
               className="hidden md:block bg-[#403F3F] rounded-none  font-semibold text-lg text-[#fff]"
@@ -106,16 +106,7 @@ const NavBar = () => {
                 <span>Login</span>
               </Button>
             </Link>
-          )} */}
-          <Link to="/login">
-            <Button
-              className="hidden md:block bg-[#403F3F] rounded-md  font-semibold text-base text-[#fff] "
-              variant="gradient"
-              size="sm"
-            >
-              <span>Login</span>
-            </Button>
-          </Link>
+          )}
         </div>
         <IconButton
           variant="text"
@@ -158,7 +149,7 @@ const NavBar = () => {
       <Collapse open={openNav}>
         <div className="container mx-auto">
           {navList}
-          {/* {user ? (
+          {user ? (
             <Button
               onClick={handleLogOut}
               variant="gradient"
@@ -174,7 +165,7 @@ const NavBar = () => {
                 <span>Login</span>
               </Button>
             </Link>
-          )} */}
+          )}
           <Link to="/login">
             <Button variant="gradient" size="sm" fullWidth className="mb-2">
               <span>Login</span>

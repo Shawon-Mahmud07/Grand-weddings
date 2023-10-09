@@ -3,7 +3,11 @@ const Banner = () => {
   return (
     <div>
       <div className="relative">
-        <img className="h-48  md:h-auto" src={bannerImg} alt="" />
+        <img
+          className="h-48 opacity-80 md:opacity-100  md:h-auto"
+          src={bannerImg}
+          alt=""
+        />
 
         <div className="absolute bottom-16 md:bottom-40 md:space-y-4 left-5 md:left-8 ">
           <h2 className="font-dancing text-5xl font-medium text-[#AE4A4A] md:text-[#000000]">

@@ -7,55 +7,65 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import NavBar from "../../../Shared/NavBar";
-// import NavBar from "../../Shared/Navbar/Navbar";
-// import { useContext } from "react";
-// import { AuthContext } from "../../../Providers/AuthProviders";
+import Footer from "../../Footer/Footer";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import { HiEyeOff, HiEye } from "react-icons/hi";
 
 const Register = () => {
-  // const { userCreate } = useContext(AuthContext);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const form = new FormData(e.currentTarget);
-  //   // const name = form.get("name");
-  //
-  //   const email = form.get("email");
-  //   const password = form.get("password");
+  const { userCreate } = useContext(AuthContext);
+  const [passwordIcon, setShowPassword] = useState(false);
+  // make password input visible
+  const showPassword = () => {
+    setShowPassword(!passwordIcon);
+  };
 
-  //   userCreate(email, password)
-  //     .then((userCredential) => {
-  //       // Signed up
-  //       const user = userCredential.user;
-  //       console.log(user);
-  //     })
-  //     .catch((error) => {
-  //       const errorMessage = error.message;
-  //       console.log(errorMessage);
-  //     });
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = form.get("name");
+
+    const email = form.get("email");
+    const password = form.get("password");
+
+    userCreate(email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <div>
       <NavBar></NavBar>
-      <div className="mt-10 flex justify-center ">
+      <div className="mt-10 mb-5 md:mb-20 flex justify-center ">
         <Card color="transparent" shadow={false}>
           <Typography variant="h4" color="blue-gray">
             Register your account
           </Typography>
 
           <form
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             className="mt-8 mb-2 w-72 md:w-80 max-w-screen-lg sm:w-96"
           >
-            <div className="mb-4 flex flex-col gap-6">
+            <div className=" relative mb-4 flex flex-col gap-6">
               <Input name="name" size="lg" label="Name" required />
 
               <Input name="email" size="lg" label="Email" required />
               <Input
                 name="password"
-                type="password"
+                type={passwordIcon ? "text" : "password"}
                 size="lg"
                 label="Password"
                 required
               />
+              <div onClick={showPassword} className="absolute bottom-4 right-2">
+                {passwordIcon ? <HiEye></HiEye> : <HiEyeOff></HiEyeOff>}
+              </div>
             </div>
             <Checkbox
               label={
@@ -84,6 +94,7 @@ const Register = () => {
           </form>
         </Card>
       </div>
+      <Footer></Footer>
     </div>
   );
 };
