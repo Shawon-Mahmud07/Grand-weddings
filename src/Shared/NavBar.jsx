@@ -49,15 +49,16 @@ const NavBar = () => {
           About
         </a>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        className="p-1  text-[#706F6F] text-lg font-normal"
+      <NavLink
+        to="/Contact"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center text-[#AE4A4A] font-bold underline text-lg"
+            : "flex items-center text-[#706F6F] text-lg"
+        }
       >
-        <a href="#" className="flex items-center">
-          Career
-        </a>
-      </Typography>
+        Contact Us
+      </NavLink>
       <Typography as="li" variant="small" className="p-1 font-normal">
         <NavLink
           to="/register"
@@ -90,7 +91,7 @@ const NavBar = () => {
           {user ? (
             <Button
               onClick={handleLogOut}
-              className="hidden md:block bg-[#403F3F] rounded-none  font-semibold text-lg text-[#fff]"
+              className="hidden md:block bg-[#403F3F] rounded-md  font-semibold text-base text-[#fff]"
               variant="gradient"
               size="sm"
             >
@@ -99,7 +100,7 @@ const NavBar = () => {
           ) : (
             <Link to="/login">
               <Button
-                className="hidden md:block bg-[#403F3F] rounded-none  font-semibold text-lg text-[#fff]"
+                className="hidden md:block bg-[#403F3F] rounded-md  font-semibold text-base text-[#fff]"
                 variant="gradient"
                 size="sm"
               >
@@ -166,11 +167,6 @@ const NavBar = () => {
               </Button>
             </Link>
           )}
-          <Link to="/login">
-            <Button variant="gradient" size="sm" fullWidth className="mb-2">
-              <span>Login</span>
-            </Button>
-          </Link>
         </div>
       </Collapse>
     </Navbar>

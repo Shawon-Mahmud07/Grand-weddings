@@ -2,6 +2,7 @@ import NavBar from "../../../Shared/NavBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { HiEyeOff, HiEye } from "react-icons/hi";
+import { FaGoogle } from "react-icons/fa6";
 import {
   Card,
   CardHeader,
@@ -14,9 +15,10 @@ import {
 } from "@material-tailwind/react";
 import Footer from "../../Footer/Footer";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const { userSignIn } = useContext(AuthContext);
+  const { userSignIn, handleGoogleSignIn } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordIcon, setShowPassword] = useState(false);
@@ -36,6 +38,18 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         // Navigate after Login
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+  const handleGoogle = () => {
+    handleGoogleSignIn()
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log(credential);
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
@@ -95,6 +109,18 @@ const Login = () => {
                   Register
                 </Link>
               </Typography>
+              <div className="mt-6 ">
+                <Button
+                  onClick={handleGoogle}
+                  size="md"
+                  color="gray"
+                  variant="outlined"
+                  className="flex font-extrabold items-center justify-center gap-3 w-11/12 mx-auto"
+                >
+                  <FaGoogle className="h-4 w-4 font-poppins border border-[#333333]"></FaGoogle>
+                  Login with Google
+                </Button>
+              </div>
             </CardFooter>
           </Card>
         </div>

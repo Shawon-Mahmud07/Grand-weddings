@@ -9,6 +9,7 @@ import {
   Typography,
   Tooltip,
 } from "@material-tailwind/react";
+import Footer from "../Footer/Footer";
 
 const CardDetails = () => {
   const { id } = useParams();
@@ -85,6 +86,7 @@ const CardDetails = () => {
           </CardFooter>
         </Card>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Banner = () => {
           alt=""
         />
 
-        <div className="absolute bottom-16 md:bottom-40 md:space-y-4 left-5 md:left-8 ">
+        <div className="absolute bottom-16 md:bottom-40 md:space-y-4 left-7 md:left-8 ">
           <h2 className="font-dancing text-5xl font-medium text-[#AE4A4A] md:text-[#000000]">
             To Making Your
           </h2>

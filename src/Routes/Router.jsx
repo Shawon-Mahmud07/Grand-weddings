@@ -4,11 +4,15 @@ import Home from "../Pages/Home/Home";
 import CardDetails from "../Pages/Services/CardDetails";
 import Login from "../Pages/Home/Login/Login";
 import Register from "../Pages/Home/Register/Register";
+import PrivetRoute from "./PrivetRoute";
+import ErrorPage from "../Pages/Home/ErrorPage";
+import ContactUs from "../components/ContactUs";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -17,8 +21,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/card/:id",
-        element: <CardDetails></CardDetails>,
+        element: (
+          <PrivetRoute>
+            <CardDetails></CardDetails>
+          </PrivetRoute>
+        ),
         loader: () => fetch("/event.json"),
+      },
+      {
+        path: "/contact",
+        element: <ContactUs></ContactUs>,
       },
       {
         path: "/login",

@@ -6,6 +6,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
@@ -39,6 +41,12 @@ const AuthProviders = ({ children }) => {
       });
   };
 
+  // Authenticate Using Google
+  const GoogleProvider = new GoogleAuthProvider();
+  const handleGoogleSignIn = () => {
+    return signInWithPopup(auth, GoogleProvider);
+  };
+
   // Get the currently signed-in user
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -52,7 +60,14 @@ const AuthProviders = ({ children }) => {
 
   // Create a password-based account
   // createUserWithEmailAndPassword
-  const authInfo = { user, userCreate, userSignIn, logOut, loading };
+  const authInfo = {
+    user,
+    userCreate,
+    userSignIn,
+    logOut,
+    handleGoogleSignIn,
+    loading,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
