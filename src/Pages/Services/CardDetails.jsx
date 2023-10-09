@@ -14,7 +14,7 @@ const CardDetails = () => {
   const { id } = useParams();
   const allCardData = useLoaderData();
   const singleData = allCardData.find((card) => card._id == id);
-  const { title, details, image_url } = singleData;
+  const { title, details, image_url, price } = singleData;
 
   return (
     <div>
@@ -34,6 +34,12 @@ const CardDetails = () => {
           <CardBody className="text-center ">
             <Typography variant="h4" color="blue-gray" className="mb-2">
               {title}
+            </Typography>
+            <Typography
+              color="blue-gray"
+              className="font-poppins font-semibold text-xl mb-3"
+            >
+              Price: {price}
             </Typography>
             <Typography
               className="font-normal text-justify text-gray-900 font-poppins"

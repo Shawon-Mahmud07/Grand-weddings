@@ -60,14 +60,14 @@ const NavBar = () => {
       </Typography>
       <Typography as="li" variant="small" className="p-1 font-normal">
         <NavLink
-          to="/login"
+          to="/register"
           className={({ isActive }) =>
             isActive
               ? "flex items-center text-[#AE4A4A] font-bold underline text-lg"
               : "flex items-center text-[#706F6F] text-lg"
           }
         >
-          Login
+          Register
         </NavLink>
       </Typography>
     </ul>
