@@ -74,7 +74,7 @@ const NavBar = () => {
   );
 
   return (
-    <Navbar className="  py-2  shadow-sm">
+    <Navbar className=" py-2  shadow-sm">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <div className="lg:flex items-center">
           <img className="w-32 h-14 md:w-36 md:h-16" src={logo} alt="" />
@@ -109,7 +109,7 @@ const NavBar = () => {
           )} */}
           <Link to="/login">
             <Button
-              className="hidden md:block bg-[#403F3F] rounded-none  font-semibold text-lg text-[#fff] hover:bg-[#A94C49]"
+              className="hidden md:block bg-[#403F3F] rounded-md  font-semibold text-base text-[#fff] "
               variant="gradient"
               size="sm"
             >
