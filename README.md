@@ -1,4 +1,8 @@
-### Five bullet points highlighting different features and functionalities of My website, "Grand Wedding:
+### Project Name: "Grand Weddings"
+
+### Website link: https://grand-weddings.netlify.app/
+
+### Five bullet points highlighting different features and functionalities of My website, "Grand Weddings":
 
 - ### Professional Wedding Services:
 
@@ -29,6 +33,6 @@
   provided for various services. This helps couples plan their wedding budget
   effectively and make informed decisions.
 
-These features and functionalities make "Grand Wedding" a comprehensive and
+These features and functionalities make "Grand Weddings" a comprehensive and
 user-friendly platform for couples planning their weddings, offering a wide
 range of services to meet their needs.
