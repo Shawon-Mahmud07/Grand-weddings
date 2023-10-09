@@ -5,12 +5,15 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../../../Shared/NavBar";
 import Footer from "../../Footer/Footer";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { HiEyeOff, HiEye } from "react-icons/hi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const { userCreate } = useContext(AuthContext);
@@ -20,23 +23,68 @@ const Register = () => {
     setShowPassword(!passwordIcon);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    // const name = form.get("name");
+    const name = form.get("name");
 
     const email = form.get("email");
     const password = form.get("password");
+    const checkBox = form.get("terms");
+
+    const pattern = /[A-Z]/;
+    const checked = pattern.test(password);
+
+    const patternSpecial = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/;
+    const patternChecked = patternSpecial.test(password);
+
+    if (password.length < 6) {
+      toast.error("Password should be at least 6 characters or longer");
+      return;
+    } else if (!checked) {
+      toast.error(
+        "Your password should have at least one upper case characters."
+      );
+      return;
+    } else if (!checkBox) {
+      toast.error("Please accept our terms and conditions!");
+      return;
+    }
+    if (!patternChecked) {
+      toast.error("Password must contain at least one special character");
+      return;
+    }
 
     userCreate(email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
+        if (user) {
+          toast.success("User create successfully!");
+        }
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
         console.log(user);
+
+        // Update a user's profile
+        updateProfile(user, {
+          displayName: name,
+        })
+          .then(() => {
+            toast.success("Profile updated!");
+          })
+          .catch((error) => {
+            toast.error(error);
+          });
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        if (errorMessage) {
+          toast.error("Invalid Email & Password! Try again");
+        }
       });
   };
   return (
@@ -68,6 +116,8 @@ const Register = () => {
               </div>
             </div>
             <Checkbox
+              name="terms"
+              type="checkbox"
               label={
                 <Typography
                   variant="small"
@@ -94,6 +144,7 @@ const Register = () => {
           </form>
         </Card>
       </div>
+      <ToastContainer></ToastContainer>
       <Footer></Footer>
     </div>
   );

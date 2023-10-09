@@ -10,6 +10,8 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 const auth = getAuth(app);
 
@@ -30,11 +32,12 @@ const AuthProviders = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   // sign out a user
-  const logOut = async () => {
+  const logOut = () => {
     setLoading(true);
     return signOut(auth)
       .then(() => {
-        console.log("Sign-out successful.");
+        toast.success("Sign-out successful.");
+        Navigate("/login");
       })
       .catch((error) => {
         console.log(error);

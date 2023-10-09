@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { FaGoogle } from "react-icons/fa6";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Card,
   CardHeader,
@@ -33,24 +35,35 @@ const Login = () => {
   const handleClick = () => {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
+
     userSignIn(trimmedEmail, trimmedPassword)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
-        // Navigate after Login
-        navigate(location?.state ? location.state : "/");
+        if (user) {
+          toast.success("User Logged in Successfully.");
+          // Navigate after Login
+          setTimeout(() => {
+            navigate(location?.state ? location.state : "/");
+          }, 2000);
+        }
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        if (errorMessage) {
+          toast.error("Invalid Email & Password");
+        }
       });
   };
+  // Google
   const handleGoogle = () => {
     handleGoogleSignIn()
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        toast.success("Sign In successfully");
         console.log(credential);
-        navigate(location?.state ? location.state : "/");
+        setTimeout(() => {
+          navigate(location?.state ? location.state : "/");
+        }, 3000);
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -125,6 +138,7 @@ const Login = () => {
           </Card>
         </div>
       </div>
+      <ToastContainer></ToastContainer>
       <Footer></Footer>
     </div>
   );

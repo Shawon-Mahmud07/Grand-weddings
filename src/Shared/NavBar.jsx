@@ -21,6 +21,7 @@ const NavBar = () => {
   }, []);
   const { user, logOut } = useContext(AuthContext);
   const [openNav, setOpenNav] = React.useState(false);
+  console.log(user);
 
   const handleLogOut = () => {
     logOut();
@@ -92,11 +93,19 @@ const NavBar = () => {
         <div className="hidden lg:block">{navList}</div>
         <div className="flex  items-center">
           {" "}
-          <img
-            src={userDefaultPicture}
-            alt="Profile"
-            className="h-7 md:h-10 w-7 md:w-10 rounded-full mr-2"
-          />
+          {user ? (
+            <img
+              src={user.photoURL}
+              alt="Profile"
+              className="h-7 md:h-10 w-7 md:w-10 rounded-full mr-2"
+            />
+          ) : (
+            <img
+              src={userDefaultPicture}
+              alt="Profile"
+              className="h-7 md:h-10 w-7 md:w-10 rounded-full mr-2"
+            />
+          )}
           {user ? (
             <Button
               onClick={handleLogOut}
