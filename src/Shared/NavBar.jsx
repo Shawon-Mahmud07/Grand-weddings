@@ -1,4 +1,8 @@
 import React, { useContext } from "react";
+import { useEffect } from "react";
+// importing aos
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   Navbar,
   Collapse,
@@ -12,6 +16,9 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 
 const NavBar = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   const { user, logOut } = useContext(AuthContext);
   const [openNav, setOpenNav] = React.useState(false);
 
@@ -42,7 +49,7 @@ const NavBar = () => {
       </Typography>
 
       <NavLink
-        to="gallery"
+        to="/gallery"
         className={({ isActive }) =>
           isActive
             ? "flex items-center text-[#AE4A4A] font-bold underline text-lg"
@@ -77,7 +84,7 @@ const NavBar = () => {
   );
 
   return (
-    <Navbar className=" py-2  shadow-sm">
+    <Navbar data-aos="fade-right" className=" py-2  shadow-sm">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <div className="lg:flex items-center">
           <img className="w-32 h-14 md:w-36 md:h-16" src={logo} alt="" />

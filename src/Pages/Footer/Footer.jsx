@@ -1,5 +1,8 @@
 import { Typography } from "@material-tailwind/react";
-
+import { useEffect } from "react";
+// importing aos
+import AOS from "aos";
+import "aos/dist/aos.css";
 const LINKS = [
   {
     title: "Product",
@@ -18,9 +21,12 @@ const LINKS = [
 const currentYear = new Date().getFullYear();
 
 const Footer = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   return (
     <div className="mt-10">
-      <footer className="relative w-full">
+      <footer data-aos="fade-left" className="relative w-full">
         <div className="mx-auto w-full max-w-7xl px-8">
           <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
             <Typography variant="h5" className="mb-6 text-[#AE4A4A]">

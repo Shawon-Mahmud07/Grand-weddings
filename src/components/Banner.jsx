@@ -1,7 +1,14 @@
 import bannerImg from "../assets/banner.avif";
+import { useEffect } from "react";
+// importing aos
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Banner = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   return (
-    <div>
+    <div data-aos="fade-left">
       <div className="relative">
         <img
           className="h-48 opacity-80 md:opacity-100  md:h-auto"

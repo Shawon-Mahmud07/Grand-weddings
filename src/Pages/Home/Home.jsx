@@ -8,6 +8,7 @@ import Testimonials from "./Testimonials";
 
 const Home = () => {
   const eventData = useLoaderData();
+
   return (
     <div>
       <NavBar></NavBar>
